@@ -16,7 +16,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
 DEFINES += \
     COMMUNI_STATIC \
     HAVE_ICU \
-    APP_VERSION=\\\"$$VERSION\\\"
+    APP_VERSION=\\\"$$VERSION\\\" \
+    IRC_STATIC
 
 HEADERS += \
     helpers/util.h \
@@ -70,7 +71,14 @@ OTHER_FILES += \
     qml/desktop/components/QueryDialog.qml \
     qml/desktop/pages/SettingsPage.qml \
     qml/desktop/misc/TitleLabel.qml \
-    qml/desktop/components/ComboBox.qml
+    qml/desktop/components/ComboBox.qml \
+    qtc_packaging/debian_harmattan/rules \
+    qtc_packaging/debian_harmattan/README \
+    qtc_packaging/debian_harmattan/manifest.aegis \
+    qtc_packaging/debian_harmattan/copyright \
+    qtc_packaging/debian_harmattan/control \
+    qtc_packaging/debian_harmattan/compat \
+    qtc_packaging/debian_harmattan/changelog
 
 # User interface for MeeGo
 OTHER_FILES += \
@@ -105,8 +113,11 @@ unix {
     QMAKE_LFLAGS += -pie -rdynamic
     QT += dbus
     INSTALLS = target
-    INCLUDEPATH += $$[QT_INSTALL_HEADERS]/Communi
-    DEPENDPATH += $$[QT_INSTALL_HEADERS]/Communi
+    # either me or QtSDK is retarded
+    INCLUDEPATH += $$[QT_INSTALL_HEADERS]/Communi \
+        /home/daneos/QtSDK/Desktop/Qt/4.8.1/gcc/include
+    DEPENDPATH += $$[QT_INSTALL_HEADERS]/Communi \
+        /home/daneos/QtSDK/Desktop/Qt/4.8.1/gcc/include
     LIBS += -lCommuni
     DEFINES += USE_DESKTOP_UI
 
